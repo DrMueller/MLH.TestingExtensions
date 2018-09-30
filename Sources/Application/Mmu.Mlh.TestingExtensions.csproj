@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Features>IOperation</Features>
+    <CodeAnalysisRuleSet>..\..\CA_ProductionCode.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Mmu.Mlh.ApplicationExtensions" Version="2.0.5" />
+    <PackageReference Include="Mmu.Mlh.DomainExtensions" Version="2.0.3" />
+    <PackageReference Include="Mmu.Mlh.LanguageExtensions" Version="2.0.7" />
+    <PackageReference Include="Moq" Version="4.10.0" />
+    <PackageReference Include="NUnit" Version="3.10.1" />
+  </ItemGroup>
+
+</Project>
