@@ -1,6 +1,4 @@
-﻿using Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services;
-using Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Implementation;
-using StructureMap;
+﻿using StructureMap;
 
 namespace Mmu.Mlh.TestingExtensions.Infrastructure.DependencyInjection
 {
