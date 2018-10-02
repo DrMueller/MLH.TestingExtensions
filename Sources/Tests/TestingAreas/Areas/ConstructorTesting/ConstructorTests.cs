@@ -8,15 +8,13 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
 {
     public class ConstructorTests : TestingBaseWithContainer
     {
-        private ICtorTestBuilderFactory _ctorBuilderFactory;
-
         [Test]
         public void TestingConstructor_UsingConstructorWith2Arguments_UsesConstructorWithTwoArguments()
         {
             const string FirstName = "Steven";
             const string LastName = "Austin";
 
-            _ctorBuilderFactory.ForType<Individual>()
+            CtorTestBuilderFactory.ForType<Individual>()
                 .ForConstructorWithParams(typeof(string), typeof(string))
                 .WithArgumentValues(FirstName, LastName)
                 .MapsToProperty(f => f.BirthDate).WithValue(Individual.UnkownBirthdate)
@@ -32,7 +30,7 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
         {
             const string FirstName = "Steven";
 
-            _ctorBuilderFactory.ForType<Individual>()
+            CtorTestBuilderFactory.ForType<Individual>()
                 .ForDefaultConstructor()
                 .WithArgumentValues(FirstName)
                 .MapsToProperty(f => f.BirthDate).WithValue(Individual.UnkownBirthdate)
@@ -49,7 +47,7 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
             Assert.Throws<AssertionException>(
                 () =>
                 {
-                    _ctorBuilderFactory.ForType<Individual>()
+                    CtorTestBuilderFactory.ForType<Individual>()
                         .ForConstructorWithParams(typeof(string), typeof(string), typeof(DateTime?))
                         .WithArgumentValues(null, "Test2", new DateTime(1986, 12, 29)).Succeeds()
                         .Build()
@@ -63,7 +61,7 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
             Assert.Throws<AssertionException>(
                 () =>
                 {
-                    _ctorBuilderFactory.ForType<Individual>()
+                    CtorTestBuilderFactory.ForType<Individual>()
                         .ForConstructorWithParams(typeof(string), typeof(string), typeof(DateTime?))
                         .WithArgumentValues("Test1", "Test2", new DateTime(1986, 12, 29)).Fails()
                         .Build()
@@ -82,7 +80,7 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
             Assert.DoesNotThrow(
                 () =>
                 {
-                    _ctorBuilderFactory.ForType<Individual>()
+                    CtorTestBuilderFactory.ForType<Individual>()
                         .ForConstructorWithParams(typeof(string), typeof(string), typeof(DateTime))
                         .WithArgumentValues(FirstName, LastName, birthdate)
                         .MapsToProperty(f => f.FullName).WithValue(ExpectedFullName)
@@ -104,7 +102,7 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
             Assert.Throws<AssertionException>(
                 () =>
                 {
-                    _ctorBuilderFactory.ForType<Individual>()
+                    CtorTestBuilderFactory.ForType<Individual>()
                         .ForDefaultConstructor()
                         .WithArgumentValues(FirstName, LastName, birthdate)
                         .MapsToProperty(f => f.FullName).WithValue(ExpectedFullNameBeingWrong)
@@ -120,7 +118,7 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
             Assert.DoesNotThrow(
                 () =>
                 {
-                    _ctorBuilderFactory.ForType<Individual>()
+                    CtorTestBuilderFactory.ForType<Individual>()
                         .ForConstructorWithParams(typeof(string), typeof(string), typeof(DateTime?))
                         .WithArgumentValues(null, null, null).Fails()
                         .WithArgumentValues(null, "Test2", new DateTime(1986, 12, 29)).Fails()
@@ -128,11 +126,6 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
                         .Build()
                         .Assert();
                 });
-        }
-
-        protected override void OnSetUp()
-        {
-            _ctorBuilderFactory = ProvisioningService.GetService<ICtorTestBuilderFactory>();
         }
     }
 }

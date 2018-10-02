@@ -14,8 +14,6 @@ namespace Mmu.Mlh.TestingExtensions.Infrastructure.DependencyInjection
                     scanner.AssemblyContainingType<TestingExtensionsRegistry>();
                     scanner.WithDefaultConventions();
                 });
-
-            For<ICtorTestBuilderFactory>().Use<CtorTestBuilderFactory>().Singleton();
         }
     }
 }
