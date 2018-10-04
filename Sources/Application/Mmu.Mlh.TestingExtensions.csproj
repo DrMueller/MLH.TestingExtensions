@@ -19,6 +19,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Mmu.Mlh.ApplicationExtensions" Version="2.0.7" />
     <PackageReference Include="Mmu.Mlh.DomainExtensions" Version="2.0.3" />
     <PackageReference Include="Mmu.Mlh.LanguageExtensions" Version="2.0.8" />
     <PackageReference Include="Moq" Version="4.10.0" />
@@ -27,10 +28,6 @@
 
   <ItemGroup>
     <Folder Include="Infrastructure\Assets\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\ApplicationExtensions\Sources\Application\Mmu.Mlh.ApplicationExtensions.csproj" />
   </ItemGroup>
 
 </Project>

@@ -81,7 +81,7 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
                 () =>
                 {
                     CtorTestBuilderFactory.ForType<Individual>()
-                        .ForConstructorWithParams(typeof(string), typeof(string), typeof(DateTime))
+                        .ForConstructorWithParams(typeof(string), typeof(string), typeof(DateTime?))
                         .WithArgumentValues(FirstName, LastName, birthdate)
                         .MapsToProperty(f => f.FullName).WithValue(ExpectedFullName)
                         .MapsToProperty(f => f.BirthDate).WithValue(birthdate)
