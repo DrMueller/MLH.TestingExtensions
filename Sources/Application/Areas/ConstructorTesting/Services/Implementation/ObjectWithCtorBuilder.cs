@@ -29,26 +29,35 @@ namespace Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Implementa
 
         public ICtorTestBuilder<T> ForConstructorWithParams(params Type[] argTypes)
         {
-            var ctorInfo = typeof(T).GetConstructor(argTypes);
-            return CreateTestBuilder(ctorInfo);
+            var constructorInfo = GetConstructors().FirstOrDefault(f => CheckIfMatchesArgumentTypes(f, argTypes));
+            return CreateTestBuilder(constructorInfo);
+        }
+
+        private static bool CheckIfMatchesArgumentTypes(MethodBase constructorInfo, params Type[] argTypes)
+        {
+            var constructorParamterTypes = constructorInfo.GetParameters().Select(f => f.ParameterType).ToList();
+            return constructorParamterTypes.SequenceEqual(argTypes);
         }
 
         public ICtorTestBuilder<T> ForDefaultConstructor()
         {
-            var ctorInfo = typeof(T)
-                .GetConstructors()
-                .OrderBy(f => f.GetParameters().Length)
+            var ctorInfo = GetConstructors().OrderBy(f => f.GetParameters().Length)
                 .FirstOrDefault();
 
             return CreateTestBuilder(ctorInfo);
         }
 
-        private ICtorTestBuilder<T> CreateTestBuilder(ConstructorInfo ctorInfo)
+        private ICtorTestBuilder<T> CreateTestBuilder(ConstructorInfo constructorInfo)
         {
-            Guard.ObjectNotNull(() => ctorInfo);
-            var ctorTestBuilder = new CtorTestBuilder<T>(this, ctorInfo);
+            Guard.ObjectNotNull(() => constructorInfo);
+            var ctorTestBuilder = new CtorTestBuilder<T>(this, constructorInfo);
             _testBuilders.Add(ctorTestBuilder);
             return ctorTestBuilder;
+        }
+
+        private static IEnumerable<ConstructorInfo> GetConstructors()
+        {
+            return typeof(T).GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
         }
     }
 }
