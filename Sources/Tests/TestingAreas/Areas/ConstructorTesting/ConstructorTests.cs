@@ -49,7 +49,7 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
                 {
                     ConstructorTestBuilderFactory.Constructing<Individual>()
                         .UsingConstructorWithParameters(typeof(string), typeof(string), typeof(DateTime?))
-                        .WithArgumentValues("Test1", "Test2", new DateTime(1986, 12, 29)).Is().Fail()
+                        .WithArgumentValues("Test1", "Test2", new DateTime(1986, 12, 29)).Fails()
                         .Assert();
                 });
         }
@@ -62,9 +62,7 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
                 {
                     ConstructorTestBuilderFactory.Constructing<Individual>()
                         .UsingConstructorWithParameters(typeof(string), typeof(string), typeof(DateTime?))
-                        .WithArgumentValues(null, "Test2", new DateTime(1986, 12, 29))
-                        .Is()
-                        .Succeeding()
+                        .WithArgumentValues(null, "Test2", new DateTime(1986, 12, 29)).Succeeds()
                         .Assert();
                 });
         }
@@ -122,7 +120,8 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
                 {
                     ConstructorTestBuilderFactory.Constructing<Individual>()
                         .UsingConstructorWithParameters(typeof(string), typeof(string), typeof(DateTime?))
-                        .WithArgumentValues(FirstName, null, null).Is().Succeeding()
+                        .WithArgumentValues(FirstName, null, null).Succeeds()
+                        .WithArgumentValues(null, null, null).Fails()
                         .WithArgumentValues(FirstName, null, null)
                         .Maps()
                         .ToProperty(f => f.FirstName).WithValue(FirstName)

@@ -24,11 +24,10 @@ namespace Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Implementa
             _assertables = new List<IAssertable>();
         }
 
-        public IConstructorAsserter<T> Is()
+        public IConstructorValuesBuilder<T> Fails()
         {
-            var asserter = new ConstructorAsserter<T>(_constructorValuesBuilder, _constructorInfo, _argumentValues);
-            _assertables.Add(asserter);
-            return asserter;
+            _assertables.Add(new ConstructorAsserter<T>(_constructorInfo, true, _argumentValues));
+            return _constructorValuesBuilder;
         }
 
         public IConstructorPropertyMapper<T> Maps()
@@ -36,6 +35,12 @@ namespace Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Implementa
             var mapper = new ConstructorPropertyMapper<T>(_constructorValuesBuilder, _constructorInfo, _argumentValues);
             _assertables.Add(mapper);
             return mapper;
+        }
+
+        public IConstructorValuesBuilder<T> Succeeds()
+        {
+            _assertables.Add(new ConstructorAsserter<T>(_constructorInfo, false, _argumentValues));
+            return _constructorValuesBuilder;
         }
 
         internal AssertionResult Assert()

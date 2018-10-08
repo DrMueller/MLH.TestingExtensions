@@ -1,72 +1,42 @@
-﻿using System;
-using System.Reflection;
-using Mmu.Mlh.LanguageExtensions.Areas.Exceptions;
+﻿using System.Reflection;
 using Mmu.Mlh.TestingExtensions.Areas.Common.Assertions.Models;
 using Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Servants;
 
 namespace Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Implementation
 {
-    internal class ConstructorAsserter<T> : IConstructorAsserter<T>, IAssertable
+    internal class ConstructorAsserter<T> : IAssertable
     {
-        private readonly IConstructorValuesBuilder<T> _constructorValuesBuilder;
-        private readonly ConstructorInfo _ctorInfo;
-        private readonly object[] _parameters;
-        private bool _shouldFail;
+        private readonly object[] _argumentValues;
+        private readonly ConstructorInfo _constructorInfo;
+        private bool _constructingShouldFail;
 
-        public ConstructorAsserter(IConstructorValuesBuilder<T> constructorValuesBuilder, ConstructorInfo ctorInfo, params object[] parameters)
+        public ConstructorAsserter(
+            ConstructorInfo constructorInfo,
+            bool constructingShouldFail,
+            params object[] argumentValues)
         {
-            _constructorValuesBuilder = constructorValuesBuilder;
-            _ctorInfo = ctorInfo;
-            _parameters = parameters;
+            _constructorInfo = constructorInfo;
+            _argumentValues = argumentValues;
+            _constructingShouldFail = constructingShouldFail;
         }
 
         public AssertionResult Assert()
         {
-            var creationResult = TryCreating(out var createdObject);
-            if (!creationResult.IsSuccess)
+            var canCreateobject = ObjectFactory.TryCreatingObject(out T _, _constructorInfo, _argumentValues);
+
+            if (canCreateobject && _constructingShouldFail)
             {
-                return creationResult;
+                var shouldFailMessage = $"    Arguments '{ObjectInterpreter.GetStringRepresentation(_argumentValues)}' should fail.";
+                return AssertionResult.CreateFail(shouldFailMessage);
+            }
+
+            if (!canCreateobject && !_constructingShouldFail)
+            {
+                var shouldNotFailMessage = $"    Arguments '{ObjectInterpreter.GetStringRepresentation(_argumentValues)}' should not fail.";
+                return AssertionResult.CreateFail(shouldNotFailMessage);
             }
 
             return AssertionResult.CreateSuccess();
-        }
-
-        public IConstructorValuesBuilder<T> Fail()
-        {
-            _shouldFail = true;
-            return _constructorValuesBuilder;
-        }
-
-        public IConstructorValuesBuilder<T> Succeeding()
-        {
-            _shouldFail = false;
-            return _constructorValuesBuilder;
-        }
-
-        private AssertionResult TryCreating(out T createdObject)
-        {
-            createdObject = default(T);
-            try
-            {
-                createdObject = (T)_ctorInfo.Invoke(_parameters);
-                if (!_shouldFail)
-                {
-                    return AssertionResult.CreateSuccess();
-                }
-
-                var message = $"    Arguments '{ObjectInterpreter.GetStringRepresentation(_parameters)}' should fail.";
-                return AssertionResult.CreateFail(message);
-            }
-            catch (Exception ex)
-            {
-                if (_shouldFail)
-                {
-                    return AssertionResult.CreateSuccess();
-                }
-
-                var message = $"    Arguments '{ObjectInterpreter.GetStringRepresentation(_parameters)}' should not fail. Received Exception: {ex.GetMostInnerException().Message}";
-                return AssertionResult.CreateFail(message);
-            }
         }
     }
 }

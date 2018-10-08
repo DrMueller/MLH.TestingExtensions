@@ -5,13 +5,13 @@ using Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Servants;
 
 namespace Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Implementation
 {
-    internal class PropertyAssertionBuilder<T, TP> : IPropertyAssertionBuilder<T, TP>
+    internal class PropertyValueAsserter<T, TP> : IPropertyAssertionBuilder<T, TP>
     {
         private readonly Expression<Func<T, TP>> _propertyExpression;
         private readonly ConstructorPropertyMapper<T> _propertyMapper;
         private TP _expectedValue;
 
-        public PropertyAssertionBuilder(ConstructorPropertyMapper<T> propertyMapper, Expression<Func<T, TP>> propertyExpression)
+        public PropertyValueAsserter(ConstructorPropertyMapper<T> propertyMapper, Expression<Func<T, TP>> propertyExpression)
         {
             _propertyMapper = propertyMapper;
             _propertyExpression = propertyExpression;
