@@ -5,15 +5,15 @@ using Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Servants;
 
 namespace Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Implementation
 {
-    internal class PropertyTestAsserter<T, TP> : IPropertyTestAsserter<T, TP>
+    internal class PropertyAssertionBuilder<T, TP> : IPropertyAssertionBuilder<T, TP>
     {
         private readonly Expression<Func<T, TP>> _propertyExpression;
-        private readonly ICtorTestAsserter<T> _testAsserter;
+        private readonly ConstructorPropertyMapper<T> _propertyMapper;
         private TP _expectedValue;
 
-        public PropertyTestAsserter(ICtorTestAsserter<T> testAsserter, Expression<Func<T, TP>> propertyExpression)
+        public PropertyAssertionBuilder(ConstructorPropertyMapper<T> propertyMapper, Expression<Func<T, TP>> propertyExpression)
         {
-            _testAsserter = testAsserter;
+            _propertyMapper = propertyMapper;
             _propertyExpression = propertyExpression;
         }
 
@@ -31,10 +31,10 @@ namespace Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Implementa
             return AssertionResult.CreateFail(message);
         }
 
-        public ICtorTestAsserter<T> WithValue(TP expectedValue)
+        public IConstructorPropertyMapper<T> WithValue(TP expectedValue)
         {
             _expectedValue = expectedValue;
-            return _testAsserter;
+            return _propertyMapper;
         }
     }
 }

@@ -2,11 +2,11 @@
 
 namespace Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services
 {
-    public static class CtorTestBuilderFactory
+    public static class ConstructorTestBuilderFactory
     {
-        public static IObjectWithCtorBuilder<T> ForType<T>()
+        public static IConstructorSelector<T> Constructing<T>()
         {
-            return new ObjectWithCtorBuilder<T>();
+            return new ConstructorSelector<T>();
         }
     }
 }

@@ -2,8 +2,8 @@
 
 namespace Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services
 {
-    public interface IPropertyAssertable<T>
+    internal interface IAssertable
     {
-        AssertionResult Assert(T objectToCheck);
+        AssertionResult Assert();
     }
 }

@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Servants
 {
-    internal static class CtorInterpreter
+    internal static class ConstructorInterpreter
     {
         internal static string GetStringRepresentation(ConstructorInfo ctorInfo)
         {

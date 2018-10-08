@@ -8,7 +8,20 @@ namespace Mmu.Mlh.TestingExtensions.FakeApp.Areas.Models
         public const string UnkownLastname = "UNKNOWN";
         public DateTime? BirthDate { get; }
         public string FirstName { get; }
-        public string FullName => FirstName + " " + LastName;
+
+        public string FullName
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(LastName))
+                {
+                    return FirstName;
+                }
+
+                return FirstName + " " + LastName;
+            }
+        }
+
         public string LastName { get; }
         public static DateTime UnkownBirthdate => DateTime.MinValue;
 

@@ -14,13 +14,13 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
             const string FirstName = "Steven";
             const string LastName = "Austin";
 
-            CtorTestBuilderFactory.ForType<Individual>()
-                .ForConstructorWithParams(typeof(string), typeof(string))
+            ConstructorTestBuilderFactory.Constructing<Individual>()
+                .UsingConstructorWithParameters(typeof(string), typeof(string))
                 .WithArgumentValues(FirstName, LastName)
-                .MapsToProperty(f => f.BirthDate).WithValue(Individual.UnkownBirthdate)
-                .MapsToProperty(f => f.LastName).WithValue(LastName)
-                .MapsToProperty(f => f.FirstName).WithValue(FirstName)
-                .Succeeds()
+                .Maps()
+                .ToProperty(f => f.BirthDate).WithValue(Individual.UnkownBirthdate)
+                .ToProperty(f => f.LastName).WithValue(LastName)
+                .ToProperty(f => f.FirstName).WithValue(FirstName)
                 .Build()
                 .Assert();
         }
@@ -30,29 +30,15 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
         {
             const string FirstName = "Steven";
 
-            CtorTestBuilderFactory.ForType<Individual>()
-                .ForDefaultConstructor()
+            ConstructorTestBuilderFactory.Constructing<Individual>()
+                .UsingDefaultConstructor()
                 .WithArgumentValues(FirstName)
-                .MapsToProperty(f => f.BirthDate).WithValue(Individual.UnkownBirthdate)
-                .MapsToProperty(f => f.LastName).WithValue(Individual.UnkownLastname)
-                .MapsToProperty(f => f.FirstName).WithValue(FirstName)
-                .Succeeds()
+                .Maps()
+                .ToProperty(f => f.BirthDate).WithValue(Individual.UnkownBirthdate)
+                .ToProperty(f => f.LastName).WithValue(Individual.UnkownLastname)
+                .ToProperty(f => f.FirstName).WithValue(FirstName)
                 .Build()
                 .Assert();
-        }
-
-        [Test]
-        public void TestingConstructor_WhenConfigDoesntFail_ButDoes_Throws()
-        {
-            Assert.Throws<AssertionException>(
-                () =>
-                {
-                    CtorTestBuilderFactory.ForType<Individual>()
-                        .ForConstructorWithParams(typeof(string), typeof(string), typeof(DateTime?))
-                        .WithArgumentValues(null, "Test2", new DateTime(1986, 12, 29)).Succeeds()
-                        .Build()
-                        .Assert();
-                });
         }
 
         [Test]
@@ -61,10 +47,24 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
             Assert.Throws<AssertionException>(
                 () =>
                 {
-                    CtorTestBuilderFactory.ForType<Individual>()
-                        .ForConstructorWithParams(typeof(string), typeof(string), typeof(DateTime?))
-                        .WithArgumentValues("Test1", "Test2", new DateTime(1986, 12, 29)).Fails()
-                        .Build()
+                    ConstructorTestBuilderFactory.Constructing<Individual>()
+                        .UsingConstructorWithParameters(typeof(string), typeof(string), typeof(DateTime?))
+                        .WithArgumentValues("Test1", "Test2", new DateTime(1986, 12, 29)).Is().Fail()
+                        .Assert();
+                });
+        }
+
+        [Test]
+        public void TestingConstructor_WhenConfigShouldntFail_ButDoes_Throws()
+        {
+            Assert.Throws<AssertionException>(
+                () =>
+                {
+                    ConstructorTestBuilderFactory.Constructing<Individual>()
+                        .UsingConstructorWithParameters(typeof(string), typeof(string), typeof(DateTime?))
+                        .WithArgumentValues(null, "Test2", new DateTime(1986, 12, 29))
+                        .Is()
+                        .Succeeding()
                         .Assert();
                 });
         }
@@ -80,12 +80,12 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
             Assert.DoesNotThrow(
                 () =>
                 {
-                    CtorTestBuilderFactory.ForType<Individual>()
-                        .ForConstructorWithParams(typeof(string), typeof(string), typeof(DateTime?))
+                    ConstructorTestBuilderFactory.Constructing<Individual>()
+                        .UsingConstructorWithParameters(typeof(string), typeof(string), typeof(DateTime?))
                         .WithArgumentValues(FirstName, LastName, birthdate)
-                        .MapsToProperty(f => f.FullName).WithValue(ExpectedFullName)
-                        .MapsToProperty(f => f.BirthDate).WithValue(birthdate)
-                        .Succeeds()
+                        .Maps()
+                        .ToProperty(f => f.FullName).WithValue(ExpectedFullName)
+                        .ToProperty(f => f.BirthDate).WithValue(birthdate)
                         .Build()
                         .Assert();
                 });
@@ -102,11 +102,11 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
             Assert.Throws<AssertionException>(
                 () =>
                 {
-                    CtorTestBuilderFactory.ForType<Individual>()
-                        .ForDefaultConstructor()
+                    ConstructorTestBuilderFactory.Constructing<Individual>()
+                        .UsingDefaultConstructor()
                         .WithArgumentValues(FirstName, LastName, birthdate)
-                        .MapsToProperty(f => f.FullName).WithValue(ExpectedFullNameBeingWrong)
-                        .Succeeds()
+                        .Maps()
+                        .ToProperty(f => f.FullName).WithValue(ExpectedFullNameBeingWrong)
                         .Build()
                         .Assert();
                 });
@@ -115,14 +115,19 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
         [Test]
         public void TestingConstructor_WithValidConfig_DoesNotThrow()
         {
+            const string FirstName = "Matthias";
+
             Assert.DoesNotThrow(
                 () =>
                 {
-                    CtorTestBuilderFactory.ForType<Individual>()
-                        .ForConstructorWithParams(typeof(string), typeof(string), typeof(DateTime?))
-                        .WithArgumentValues(null, null, null).Fails()
-                        .WithArgumentValues(null, "Test2", new DateTime(1986, 12, 29)).Fails()
-                        .WithArgumentValues("Test1", "Test2", null).Succeeds()
+                    ConstructorTestBuilderFactory.Constructing<Individual>()
+                        .UsingConstructorWithParameters(typeof(string), typeof(string), typeof(DateTime?))
+                        .WithArgumentValues(FirstName, null, null).Is().Succeeding()
+                        .WithArgumentValues(FirstName, null, null)
+                        .Maps()
+                        .ToProperty(f => f.FirstName).WithValue(FirstName)
+                        .ToProperty(f => f.FullName).WithValue(FirstName)
+                        .ToProperty(f => f.BirthDate).WithValue(null)
                         .Build()
                         .Assert();
                 });
