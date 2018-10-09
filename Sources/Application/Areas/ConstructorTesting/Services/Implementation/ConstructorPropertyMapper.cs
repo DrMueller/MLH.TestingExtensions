@@ -47,7 +47,7 @@ namespace Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Implementa
             return AssertionResult.CreateFail(sb.ToString());
         }
 
-        public IConstructorValuesBuilder<T> Build()
+        public IConstructorValuesBuilder<T> BuildMaps()
         {
             return _valuesBuilder;
         }

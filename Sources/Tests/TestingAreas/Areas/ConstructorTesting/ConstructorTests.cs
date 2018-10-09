@@ -21,7 +21,7 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
                 .ToProperty(f => f.BirthDate).WithValue(Individual.UnkownBirthdate)
                 .ToProperty(f => f.LastName).WithValue(LastName)
                 .ToProperty(f => f.FirstName).WithValue(FirstName)
-                .Build()
+                .BuildMaps()
                 .Assert();
         }
 
@@ -37,7 +37,7 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
                 .ToProperty(f => f.BirthDate).WithValue(Individual.UnkownBirthdate)
                 .ToProperty(f => f.LastName).WithValue(Individual.UnkownLastname)
                 .ToProperty(f => f.FirstName).WithValue(FirstName)
-                .Build()
+                .BuildMaps()
                 .Assert();
         }
 
@@ -84,7 +84,7 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
                         .Maps()
                         .ToProperty(f => f.FullName).WithValue(ExpectedFullName)
                         .ToProperty(f => f.BirthDate).WithValue(birthdate)
-                        .Build()
+                        .BuildMaps()
                         .Assert();
                 });
         }
@@ -105,7 +105,7 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
                         .WithArgumentValues(FirstName, LastName, birthdate)
                         .Maps()
                         .ToProperty(f => f.FullName).WithValue(ExpectedFullNameBeingWrong)
-                        .Build()
+                        .BuildMaps()
                         .Assert();
                 });
         }
@@ -127,7 +127,7 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
                         .ToProperty(f => f.FirstName).WithValue(FirstName)
                         .ToProperty(f => f.FullName).WithValue(FirstName)
                         .ToProperty(f => f.BirthDate).WithValue(null)
-                        .Build()
+                        .BuildMaps()
                         .Assert();
                 });
         }
