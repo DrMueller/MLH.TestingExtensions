@@ -1,4 +1,4 @@
-﻿using Mmu.Mlh.ApplicationExtensions.Areas.ServiceProvisioning;
+﻿using Mmu.Mlh.ServiceProvisioning.Areas.Provisioning.Services;
 using Mmu.Mlh.TestingExtensions.Areas.Common.BasesClasses.Servants;
 using NUnit.Framework;
 using StructureMap;
@@ -9,7 +9,7 @@ namespace Mmu.Mlh.TestingExtensions.Areas.Common.BasesClasses
     public abstract class TestingBaseWithContainer
     {
         private IContainer _container;
-        protected IProvisioningService ProvisioningService => ProvisioningServiceSingleton.Instance;
+        protected IServiceLocator ServiceLocator => ServiceLocatorSingleton.Instance;
 
         [SetUp]
         public void SetUpBase()

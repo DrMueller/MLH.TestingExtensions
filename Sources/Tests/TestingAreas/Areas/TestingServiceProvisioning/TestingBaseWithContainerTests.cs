@@ -16,7 +16,7 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.TestingServiceProvi
             Assert.DoesNotThrow(
                 () =>
                 {
-                    actualIndividualService = ProvisioningService.GetService<IIndividualService>();
+                    actualIndividualService = ServiceLocator.GetService<IIndividualService>();
                 });
 
             Assert.IsNotNull(actualIndividualService);
@@ -28,7 +28,7 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.TestingServiceProvi
             var individualServiceMock = new Mock<IIndividualService>();
             RegisterInstance(individualServiceMock.Object);
 
-            var actualIndividualService = ProvisioningService.GetService<IIndividualService>();
+            var actualIndividualService = ServiceLocator.GetService<IIndividualService>();
 
             Assert.AreEqual(individualServiceMock.Object, actualIndividualService);
         }

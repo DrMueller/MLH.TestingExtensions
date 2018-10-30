@@ -4,8 +4,8 @@
     {
         IConstructorValuesBuilder<T> Fails();
 
-        IConstructorValuesBuilder<T> Succeeds();
-
         IConstructorPropertyMapper<T> Maps();
+
+        IConstructorValuesBuilder<T> Succeeds();
     }
 }
