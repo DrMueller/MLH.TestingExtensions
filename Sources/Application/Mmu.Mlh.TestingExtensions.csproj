@@ -21,7 +21,7 @@
   <ItemGroup>
     <PackageReference Include="Mmu.Mlh.DomainExtensions" Version="2.0.6" />
     <PackageReference Include="Mmu.Mlh.LanguageExtensions" Version="2.0.9" />
-    <PackageReference Include="Mmu.Mlh.ServiceProvisioning" Version="2.0.1" />
+    <PackageReference Include="Mmu.Mlh.ServiceProvisioning" Version="2.0.2" />
     <PackageReference Include="Moq" Version="4.10.0" />
     <PackageReference Include="NUnit" Version="3.11.0" />
   </ItemGroup>
@@ -29,5 +29,4 @@
   <ItemGroup>
     <Folder Include="Infrastructure\Assets\" />
   </ItemGroup>
-
 </Project>

@@ -1,5 +1,6 @@
-﻿using Mmu.Mlh.ServiceProvisioning.Areas.Provisioning.Services;
-using Mmu.Mlh.TestingExtensions.Areas.Common.BasesClasses.Servants;
+﻿using Mmu.Mlh.ServiceProvisioning.Areas.Initialization.Models;
+using Mmu.Mlh.ServiceProvisioning.Areas.Initialization.Services;
+using Mmu.Mlh.ServiceProvisioning.Areas.Provisioning.Services;
 using NUnit.Framework;
 using StructureMap;
 
@@ -9,16 +10,16 @@ namespace Mmu.Mlh.TestingExtensions.Areas.Common.BasesClasses
     public abstract class TestingBaseWithContainer
     {
         private IContainer _container;
-        protected IServiceLocator ServiceLocator => ServiceLocatorSingleton.Instance;
+        protected static IServiceLocator ServiceLocator => ServiceLocatorSingleton.Instance;
 
         [SetUp]
-        public void SetUpBase()
+        public void AlignBase()
         {
-            _container = ProvisioningServiceFactory.Create();
-            OnSetUp();
+            _container = ContainerInitializationService.CreateInitializedContainer(ContainerConfiguration.CreateFromAssembly(GetType().Assembly));
+            OnAlign();
         }
 
-        protected virtual void OnSetUp()
+        protected virtual void OnAlign()
         {
         }
 
