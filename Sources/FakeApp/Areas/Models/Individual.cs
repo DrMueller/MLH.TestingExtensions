@@ -6,6 +6,7 @@ namespace Mmu.Mlh.TestingExtensions.FakeApp.Areas.Models
     public class Individual
     {
         public const string UnkownLastname = "UNKNOWN";
+        public static DateTime UnkownBirthdate => DateTime.MinValue;
         public DateTime? BirthDate { get; }
         public string FirstName { get; }
 
@@ -23,7 +24,6 @@ namespace Mmu.Mlh.TestingExtensions.FakeApp.Areas.Models
         }
 
         public string LastName { get; }
-        public static DateTime UnkownBirthdate => DateTime.MinValue;
 
         public Individual(string firstName, string lastName, DateTime? birthDate)
         {

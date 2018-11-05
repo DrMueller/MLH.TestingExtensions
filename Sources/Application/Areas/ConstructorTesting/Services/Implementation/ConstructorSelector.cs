@@ -30,17 +30,17 @@ namespace Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Implementa
             return constructorParamterTypes.SequenceEqual(argTypes);
         }
 
+        private static IEnumerable<ConstructorInfo> GetConstructors()
+        {
+            return typeof(T).GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+        }
+
         private IConstructorValuesBuilder<T> CreateConstructorValuesBuilder(ConstructorInfo constructorInfo)
         {
             Guard.ObjectNotNull(() => constructorInfo);
             var constructorValuesBuilder = new ConstructorValuesBuilder<T>(constructorInfo);
             _constructorValuesBuilders.Add(constructorValuesBuilder);
             return constructorValuesBuilder;
-        }
-
-        private static IEnumerable<ConstructorInfo> GetConstructors()
-        {
-            return typeof(T).GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
         }
     }
 }
