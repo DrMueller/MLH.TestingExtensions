@@ -10,7 +10,7 @@ namespace Mmu.Mlh.TestingExtensions.Areas.Common.BasesClasses
     public abstract class TestingBaseWithContainer
     {
         private IContainer _container;
-        protected static IServiceLocator ServiceLocator => ServiceLocatorSingleton.Instance;
+        protected IServiceLocator ServiceLocator => ServiceLocatorSingleton.Instance;
 
         [SetUp]
         public void AlignBase()
