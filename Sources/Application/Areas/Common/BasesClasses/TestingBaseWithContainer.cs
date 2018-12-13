@@ -15,11 +15,24 @@ namespace Mmu.Mlh.TestingExtensions.Areas.Common.BasesClasses
         [SetUp]
         public void AlignBase()
         {
-            _container = ContainerInitializationService.CreateInitializedContainer(ContainerConfiguration.CreateFromAssembly(GetType().Assembly));
-            OnAlign();
+            var config = CreateContainerConfiguration();
+
+            _container = ContainerInitializationService.CreateInitializedContainer(
+                ContainerConfiguration.CreateFromAssembly(
+                    GetType().Assembly,
+                    config.NamespaceParts,
+                    config.InitializeAutoMapper,
+                    config.LogInitialization));
+
+            OnAligned();
         }
 
-        protected virtual void OnAlign()
+        protected virtual TestingContainerConfiguration CreateContainerConfiguration()
+        {
+            return TestingContainerConfiguration.CreateDefult();
+        }
+
+        protected virtual void OnAligned()
         {
         }
 
