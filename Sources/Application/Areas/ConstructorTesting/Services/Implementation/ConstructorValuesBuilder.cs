@@ -20,7 +20,12 @@ namespace Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Implementa
 
         public void Assert()
         {
-            var failingAssertions = _constructorAssertionSelectors.Select(f => f.Assert()).Where(f => !f.IsSuccess);
+            var failingAssertions =
+                _constructorAssertionSelectors
+                    .Select(f => f.Assert())
+                    .Where(f => !f.IsSuccess)
+                    .ToList();
+
             if (!failingAssertions.Any())
             {
                 return;
@@ -29,6 +34,7 @@ namespace Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Implementa
             var sb = new StringBuilder();
             sb.AppendLine($"Assertion of type '{typeof(T).Name}' failed.");
             sb.AppendLineWithIndentation($"Constructor: {ConstructorInterpreter.GetStringRepresentation(_constructorInfo)}", 2);
+            failingAssertions.ForEach(f => sb.AppendLine(f.Message));
 
             n.Assert.Fail(sb.ToString());
         }

@@ -97,17 +97,19 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
             var birthdate = new DateTime(1964, 12, 18);
             const string ExpectedFullNameBeingWrong = "Other String";
 
-            Assert.Throws<AssertionException>(
+            Assert.That(
                 () =>
                 {
                     ConstructorTestBuilderFactory.Constructing<Individual>()
-                        .UsingDefaultConstructor()
+                        .UsingConstructorWithParameters(typeof(string), typeof(string), typeof(DateTime?))
                         .WithArgumentValues(FirstName, LastName, birthdate)
                         .Maps()
                         .ToProperty(f => f.FullName).WithValue(ExpectedFullNameBeingWrong)
                         .BuildMaps()
                         .Assert();
-                });
+                },
+                Throws.TypeOf<AssertionException>()
+                    .And.Message.Contain("Expected value 'Other String' to equal 'Steven Austin'."));
         }
 
         [Test]
