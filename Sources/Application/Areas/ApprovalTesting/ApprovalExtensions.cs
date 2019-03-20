@@ -1,5 +1,4 @@
-﻿using System;
-using ApprovalTests;
+﻿using ApprovalTests;
 using Newtonsoft.Json;
 
 namespace Mmu.Mlh.TestingExtensions.Areas.ApprovalTesting

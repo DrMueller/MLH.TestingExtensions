@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using ApprovalUtilities.Utilities;
 using Mmu.Mlh.LanguageExtensions.Areas.StringBuilders;
+using Mmu.Mlh.TestingExtensions.Areas.Common.Assertions.Models;
 using Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Servants;
 using n = NUnit.Framework;
 
@@ -31,12 +34,7 @@ namespace Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Implementa
                 return;
             }
 
-            var sb = new StringBuilder();
-            sb.AppendLine($"Assertion of type '{typeof(T).Name}' failed.");
-            sb.AppendLineWithIndentation($"Constructor: {ConstructorInterpreter.GetStringRepresentation(_constructorInfo)}", 2);
-            failingAssertions.ForEach(f => sb.AppendLine(f.Message));
-
-            n.Assert.Fail(sb.ToString());
+            ThrowAssertionFailure(failingAssertions);
         }
 
         public IConstructorAssertionSelector<T> WithArgumentValues(params object[] argumentValues)
@@ -44,6 +42,22 @@ namespace Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Implementa
             var constructorAssertionSelector = new ConstructorAssertionSelector<T>(this, _constructorInfo, argumentValues);
             _constructorAssertionSelectors.Add(constructorAssertionSelector);
             return constructorAssertionSelector;
+        }
+
+        private void ThrowAssertionFailure(IEnumerable<AssertionResult> failingAssertions)
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine($"Assertion of type '{typeof(T).Name}' failed.");
+            sb.AppendLineWithIndentation($"Constructor: {ConstructorInterpreter.GetStringRepresentation(_constructorInfo)}", 2);
+            failingAssertions.ForEach(f => sb.AppendLine(f.Message));
+
+            var assertionMessage = sb.ToString();
+            while (assertionMessage.EndsWith(Environment.NewLine, StringComparison.OrdinalIgnoreCase))
+            {
+                assertionMessage = assertionMessage.Substring(0, assertionMessage.Length - Environment.NewLine.Length);
+            }
+
+            n.Assert.Fail(assertionMessage);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Mmu.Mlh.TestingExtensions.Areas.Common.BasesClasses;
 using Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services;
 using Mmu.Mlh.TestingExtensions.FakeApp.Areas.Models;
@@ -8,6 +9,58 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
 {
     public class ConstructorTests : TestingBaseWithContainer
     {
+        [Test]
+        public void TestingConstructor_PassingCollectionValues_MappingPropertyToCollectionWithDifferentValues_Throws()
+        {
+            const string ExpectedMessageEnding = "Expected values 'Other1;Test2' to equal 'Test1;Test2'.";
+
+            Assert.That(
+                () =>
+                {
+                    ConstructorTestBuilderFactory.Constructing<Organisation>()
+                        .UsingDefaultConstructor()
+                        .WithArgumentValues(new List<string> { "Test1", "Test2" })
+                        .Maps()
+                        .ToProperty(f => f.Addresses).WithValues(new List<string> { "Other1", "Test2" })
+                        .BuildMaps()
+                        .Assert();
+                },
+                Throws.TypeOf<AssertionException>()
+                    .And.Message.EndsWith(ExpectedMessageEnding));
+        }
+
+        [Test]
+        public void TestingConstructor_PassingCollectionValues_MappingPropertyToCollectionWithSameValues_DoesNotThrow()
+        {
+            Assert.DoesNotThrow(
+                () =>
+                {
+                    ConstructorTestBuilderFactory.Constructing<Organisation>()
+                        .UsingDefaultConstructor()
+                        .WithArgumentValues(new List<string> { "Test1", "Test2" })
+                        .Maps()
+                        .ToProperty(f => f.Addresses).WithValues(new List<string> { "Test2", "Test1" })
+                        .BuildMaps()
+                        .Assert();
+                });
+        }
+
+        [Test]
+        public void TestingConstructor_PassingEmptyCollection_MappingPropertyToEmptyCollection_DoesNotThrow()
+        {
+            Assert.DoesNotThrow(
+                () =>
+                {
+                    ConstructorTestBuilderFactory.Constructing<Organisation>()
+                        .UsingDefaultConstructor()
+                        .WithArgumentValues(new List<string>())
+                        .Maps()
+                        .ToProperty(f => f.Addresses).WithValues(new List<string>())
+                        .BuildMaps()
+                        .Assert();
+                });
+        }
+
         [Test]
         public void TestingConstructor_UsingConstructorWith2Arguments_UsesConstructorWithTwoArguments()
         {

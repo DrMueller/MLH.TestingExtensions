@@ -54,7 +54,7 @@ namespace Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Implementa
 
         public IPropertyAssertionBuilder<T, TP> ToProperty<TP>(Expression<Func<T, TP>> propertyExpression)
         {
-            var asserter = new PropertyValueAsserter<T, TP>(this, propertyExpression);
+            var asserter = new PropertyAssertionBuilder<T, TP>(this, propertyExpression);
             _propertyAssertionBuilders.Add(asserter);
 
             return asserter;

@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 
 namespace Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Servants
 {
@@ -24,6 +25,11 @@ namespace Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Servants
             if (parameter == null)
             {
                 return "(NULL)";
+            }
+
+            if (parameter is IEnumerable<object> enumerable)
+            {
+                return string.Join(";", enumerable);
             }
 
             return parameter.ToString();
