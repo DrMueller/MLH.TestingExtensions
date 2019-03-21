@@ -7,8 +7,8 @@ namespace Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Implementa
     internal class ConstructorAsserter<T> : IAssertable
     {
         private readonly object[] _argumentValues;
+        private readonly bool _constructingShouldFail;
         private readonly ConstructorInfo _constructorInfo;
-        private bool _constructingShouldFail;
 
         public ConstructorAsserter(
             ConstructorInfo constructorInfo,
