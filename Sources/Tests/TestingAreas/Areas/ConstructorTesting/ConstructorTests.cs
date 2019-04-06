@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Mmu.Mlh.TestingExtensions.Areas.Common.BasesClasses;
 using Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services;
+using Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Implementation.PropertyAsserters.Servants;
 using Mmu.Mlh.TestingExtensions.FakeApp.Areas.Models;
 using NUnit.Framework;
 
@@ -10,27 +11,151 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
     public class ConstructorTests : TestingBaseWithContainer
     {
         [Test]
-        public void TestingConstructor_PassingCollectionValues_MappingPropertyToCollectionWithDifferentValues_Throws()
+        public void ComparingConstructorNotNull_ToNullValue_DoesThrow()
         {
-            const string ExpectedMessageEnding = "Expected values 'Other1;Test2' to equal 'Test1;Test2'.";
+            const string ActualLastName = "Müller";
+            var expexctedMessageEnding = FailingMessageFactory.CreateNotEqualMessage(null, ActualLastName);
+
+            Assert.That(
+                () =>
+                {
+                    ConstructorTestBuilderFactory.Constructing<Individual>()
+                        .UsingConstructorWithParameters(typeof(string), typeof(string), typeof(DateTime?))
+                        .WithArgumentValues("Matthias", ActualLastName, DateTime.Now)
+                        .Maps()
+                        .ToProperty(f => f.BirthDate).WithValue(DateTime.Now)
+                        .ToProperty(f => f.FirstName).WithValue("Matthias")
+                        .ToProperty(f => f.LastName).WithValue(null)
+                        .BuildMaps()
+                        .Assert();
+                },
+                Throws.TypeOf<AssertionException>()
+                    .And.Message.EndsWith(expexctedMessageEnding));
+        }
+
+        [Test]
+        public void ComparingConstructorNotNull_ToNullValueCollection_DoesThrow()
+        {
+            var actualList = new List<string>();
+            var expexctedMessageEnding = FailingMessageFactory.CreateNotEqualMessage(null, actualList);
 
             Assert.That(
                 () =>
                 {
                     ConstructorTestBuilderFactory.Constructing<Organisation>()
                         .UsingDefaultConstructor()
-                        .WithArgumentValues(new List<string> { "Test1", "Test2" })
+                        .WithArgumentValues(actualList)
                         .Maps()
-                        .ToProperty(f => f.Addresses).WithValues(new List<string> { "Other1", "Test2" })
+                        .ToProperty(f => f.Addresses).WithValues(null)
                         .BuildMaps()
                         .Assert();
                 },
                 Throws.TypeOf<AssertionException>()
-                    .And.Message.EndsWith(ExpectedMessageEnding));
+                    .And.Message.EndsWith(expexctedMessageEnding));
         }
 
         [Test]
-        public void TestingConstructor_PassingCollectionValues_MappingPropertyToCollectionWithSameValues_DoesNotThrow()
+        public void ComparingConstructorNull_ToNotNullValue_DoesThrow()
+        {
+            var expectedDate = new DateTime(1986, 12, 29);
+            var expectedMessageEnding = FailingMessageFactory.CreateNotEqualMessage(expectedDate, null);
+
+            Assert.That(
+                () =>
+                {
+                    ConstructorTestBuilderFactory.Constructing<Individual>()
+                        .UsingConstructorWithParameters(typeof(string), typeof(string), typeof(DateTime?))
+                        .WithArgumentValues("Matthias", "Müller", null)
+                        .Maps()
+                        .ToProperty(f => f.BirthDate).WithValue(expectedDate)
+                        .ToProperty(f => f.FirstName).WithValue("Matthias")
+                        .ToProperty(f => f.LastName).WithValue("Müller")
+                        .BuildMaps()
+                        .Assert();
+                },
+                Throws.TypeOf<AssertionException>()
+                    .And.Message.EndsWith(expectedMessageEnding));
+        }
+
+        [Test]
+        public void ComparingConstructorNull_ToNotNullValueCollection_DoesThrow()
+        {
+            var expectedList = new List<string>();
+            var expexctedMessageEnding = FailingMessageFactory.CreateNotEqualMessage(expectedList, null);
+
+            Assert.That(
+                () =>
+                {
+                    ConstructorTestBuilderFactory.Constructing<Organisation>()
+                        .UsingDefaultConstructor()
+                        .WithArgumentValues(null)
+                        .Maps()
+                        .ToProperty(f => f.Addresses).WithValues(expectedList)
+                        .BuildMaps()
+                        .Assert();
+                },
+                Throws.TypeOf<AssertionException>()
+                    .And.Message.EndsWith(expexctedMessageEnding));
+        }
+
+        [Test]
+        public void ComparingTwoNullValueCollections_DoesNotThrow()
+        {
+            Assert.DoesNotThrow(
+                () =>
+                {
+                    ConstructorTestBuilderFactory.Constructing<Organisation>()
+                        .UsingDefaultConstructor()
+                        .WithArgumentValues(null)
+                        .Maps()
+                        .ToProperty(f => f.Addresses).WithValues(null)
+                        .BuildMaps()
+                        .Assert();
+                });
+        }
+
+        [Test]
+        public void ComparingTwoNullValues_DoesNotThrow()
+        {
+            Assert.DoesNotThrow(
+                () =>
+                {
+                    ConstructorTestBuilderFactory.Constructing<Individual>()
+                        .UsingConstructorWithParameters(typeof(string), typeof(string), typeof(DateTime?))
+                        .WithArgumentValues("Matthias", "Müller", null)
+                        .Maps()
+                        .ToProperty(f => f.BirthDate).WithValue(null)
+                        .ToProperty(f => f.FirstName).WithValue("Matthias")
+                        .ToProperty(f => f.LastName).WithValue("Müller")
+                        .BuildMaps()
+                        .Assert();
+                });
+        }
+
+        [Test]
+        public void PassingCollectionValues_MappingPropertyToCollectionWithDifferentValues_Throws()
+        {
+            var actualList = new List<string> { "Test1", "Test2" };
+            var expectedList = new List<string> { "Other1", "Test2" };
+            var expexctedMessageEnding = FailingMessageFactory.CreateNotEqualMessage(expectedList, actualList);
+
+            Assert.That(
+                () =>
+                {
+                    ConstructorTestBuilderFactory.Constructing<Organisation>()
+                        .UsingDefaultConstructor()
+                        .WithArgumentValues(actualList)
+                        .Maps()
+                        .ToProperty(f => f.Addresses).WithValues(expectedList)
+                        .BuildMaps()
+                        .Assert();
+                },
+                Throws.TypeOf<AssertionException>()
+                    .And.Message.EndsWith(expexctedMessageEnding));
+        }
+
+        [Test]
+        public void PassingCollectionValues_MappingPropertyToCollectionWithSameValues_DoesNotThrow()
         {
             Assert.DoesNotThrow(
                 () =>
@@ -46,7 +171,7 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
         }
 
         [Test]
-        public void TestingConstructor_PassingEmptyCollection_MappingPropertyToEmptyCollection_DoesNotThrow()
+        public void PassingEmptyCollection_MappingPropertyToEmptyCollection_DoesNotThrow()
         {
             Assert.DoesNotThrow(
                 () =>
@@ -62,7 +187,7 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
         }
 
         [Test]
-        public void TestingConstructor_UsingConstructorWith2Arguments_UsesConstructorWithTwoArguments()
+        public void UsingConstructorWith2Arguments_UsesConstructorWithTwoArguments()
         {
             const string FirstName = "Steven";
             const string LastName = "Austin";
@@ -79,7 +204,7 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
         }
 
         [Test]
-        public void TestingConstructor_UsingDefaultConstructor_UsesConstructorWithLeastArguments()
+        public void UsingDefaultConstructor_UsesConstructorWithLeastArguments()
         {
             const string FirstName = "Steven";
 
@@ -95,7 +220,7 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
         }
 
         [Test]
-        public void TestingConstructor_WhenConfigShouldFail_ButDoesnt_Throws()
+        public void WhenConfigShouldFail_ButDoesnt_Throws()
         {
             Assert.Throws<AssertionException>(
                 () =>
@@ -108,7 +233,7 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
         }
 
         [Test]
-        public void TestingConstructor_WhenConfigShouldntFail_ButDoes_Throws()
+        public void WhenConfigShouldntFail_ButDoes_Throws()
         {
             Assert.Throws<AssertionException>(
                 () =>
@@ -121,7 +246,7 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
         }
 
         [Test]
-        public void TestingConstructor_WithMappingToProperty_MappingBeingCorrect_Works()
+        public void WithMappingToProperty_MappingBeingCorrect_Works()
         {
             const string FirstName = "Steven";
             const string LastName = "Austin";
@@ -143,12 +268,15 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
         }
 
         [Test]
-        public void TestingConstructor_WithMappingToProperty_MappingBeingIncorrect_Throws()
+        public void WithMappingToProperty_MappingBeingIncorrect_Throws()
         {
-            const string FirstName = "Steven";
+            const string FirstName = "Steve";
             const string LastName = "Austin";
             var birthdate = new DateTime(1964, 12, 18);
             const string ExpectedFullNameBeingWrong = "Other String";
+            const string ActualCorrectFullName = "Steve Austin";
+
+            var expexctedMessageEnding = FailingMessageFactory.CreateNotEqualMessage(ExpectedFullNameBeingWrong, ActualCorrectFullName);
 
             Assert.That(
                 () =>
@@ -162,11 +290,11 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
                         .Assert();
                 },
                 Throws.TypeOf<AssertionException>()
-                    .And.Message.Contain("Expected value 'Other String' to equal 'Steven Austin'."));
+                    .And.Message.EndsWith(expexctedMessageEnding));
         }
 
         [Test]
-        public void TestingConstructor_WithValidConfig_DoesNotThrow()
+        public void WithValidConfig_DoesNotThrow()
         {
             const string FirstName = "Matthias";
 

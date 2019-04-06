@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Mmu.Mlh.LanguageExtensions.Areas.Collections;
 using Mmu.Mlh.TestingExtensions.Areas.Common.Assertions.Models;
+using Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Implementation.PropertyAsserters.Servants;
 using Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Servants;
 
 namespace Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Implementation.PropertyAsserters.Implementation
@@ -18,11 +19,27 @@ namespace Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Implementa
         [SuppressMessage("Microsoft.Usage", "SA1119:StatementMustNotUseUnnecessaryParenthesis", Justification = "Bug in StyleCop")]
         public AssertionResult Assert(TP actualPropertyValue)
         {
-            var actualValueString = ObjectInterpreter.GetStringRepresentation(actualPropertyValue);
+            var notEqualMessage = FailingMessageFactory.CreateNotEqualMessage(_expectedValues, actualPropertyValue);
 
+            var actualIsNull = actualPropertyValue == null;
+            var expectedIsNull = _expectedValues == null;
+
+            // Both Null = fine
+            if (actualIsNull && expectedIsNull)
+            {
+                return AssertionResult.CreateSuccess();
+            }
+
+            // One Null = Not fine
+            if (!actualIsNull ^ !expectedIsNull)
+            {
+                return AssertionResult.CreateFail(notEqualMessage);
+            }
+
+            // Compare enumerables
             if (!(actualPropertyValue is IEnumerable<object> actualCollection))
             {
-                var notEnumerableMessage = $"Actual values '{actualValueString}' is not an IEnumerable.";
+                var notEnumerableMessage = $"Actual '{ObjectInterpreter.GetStringRepresentation(actualPropertyValue)}' is not an IEnumerable.";
                 return AssertionResult.CreateFail(notEnumerableMessage);
             }
 
@@ -31,9 +48,7 @@ namespace Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Implementa
                 return AssertionResult.CreateSuccess();
             }
 
-            var expectedValueString = ObjectInterpreter.GetStringRepresentation(_expectedValues);
-            var message = $"Expected values '{expectedValueString}' to equal '{actualValueString}'.";
-            return AssertionResult.CreateFail(message);
+            return AssertionResult.CreateFail(notEqualMessage);
         }
     }
 }

@@ -9,7 +9,10 @@ namespace Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Servants
         {
             try
             {
-                createdObject = (T)constructorInfo.Invoke(argumentValues);
+                // If the argumentValues are actually null, they are not recognized
+                // So, we create a new array with one entry being null
+                var args = argumentValues ?? new object[] { null };
+                createdObject = (T)constructorInfo.Invoke(args);
                 return true;
             }
             catch (Exception)

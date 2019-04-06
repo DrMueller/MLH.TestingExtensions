@@ -29,7 +29,7 @@ namespace Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Implementa
         {
             if (!ObjectFactory.TryCreatingObject<T>(out var createdObject, _constructorInfo, _argumentValues))
             {
-                return AssertionResult.CreateFail("    Could not create Object to check Propertes.");
+                return AssertionResult.CreateFail("    Could not create Object to check Properties.");
             }
 
             var failingPropertyAssertions = _propertyAssertionBuilders.Select(f => f.Assert(createdObject)).Where(f => !f.IsSuccess).ToList();

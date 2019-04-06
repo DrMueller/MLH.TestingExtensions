@@ -1,5 +1,5 @@
 ﻿using Mmu.Mlh.TestingExtensions.Areas.Common.Assertions.Models;
-using Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Servants;
+using Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Implementation.PropertyAsserters.Servants;
 
 namespace Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Implementation.PropertyAsserters.Implementation
 {
@@ -19,10 +19,8 @@ namespace Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Implementa
                 return AssertionResult.CreateSuccess();
             }
 
-            var expectedValueString = ObjectInterpreter.GetStringRepresentation(_expectedValue);
-            var actualValueString = ObjectInterpreter.GetStringRepresentation(actualPropertyValue);
-            var message = $"Expected value '{expectedValueString}' to equal '{actualValueString}'.";
-            return AssertionResult.CreateFail(message);
+            var notEqualMessage = FailingMessageFactory.CreateNotEqualMessage(_expectedValue, actualPropertyValue);
+            return AssertionResult.CreateFail(notEqualMessage);
         }
     }
 }
