@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Mmu.Mlh.TestingExtensions.Areas.Common.BasesClasses;
 using Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services;
 using Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Implementation.PropertyAsserters.Servants;
@@ -99,6 +100,29 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
         }
 
         [Test]
+        public void ComparingConstructorNullString_ToNotNullString_DoesThrow()
+        {
+            const string ExpectedLastname = "Müller";
+            var expectedMessageEnding = FailingMessageFactory.CreateNotEqualMessage(ExpectedLastname, null);
+
+            Assert.That(
+                () =>
+                {
+                    ConstructorTestBuilderFactory.Constructing<Individual>()
+                        .UsingConstructorWithParameters(typeof(string), typeof(string), typeof(DateTime?))
+                        .WithArgumentValues("Matthias", null, null)
+                        .Maps()
+                        .ToProperty(f => f.BirthDate).WithValue(null)
+                        .ToProperty(f => f.FirstName).WithValue("Matthias")
+                        .ToProperty(f => f.LastName).WithValue(ExpectedLastname)
+                        .BuildMaps()
+                        .Assert();
+                },
+                Throws.TypeOf<AssertionException>()
+                    .And.Message.EndsWith(expectedMessageEnding));
+        }
+
+        [Test]
         public void ComparingTwoNullValueCollections_DoesNotThrow()
         {
             Assert.DoesNotThrow(
@@ -127,6 +151,66 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
                         .ToProperty(f => f.BirthDate).WithValue(null)
                         .ToProperty(f => f.FirstName).WithValue("Matthias")
                         .ToProperty(f => f.LastName).WithValue("Müller")
+                        .BuildMaps()
+                        .Assert();
+                });
+        }
+
+        [Test]
+        public void ConstructingWithParams_PassingMultipleValues_MapsToCollectionWithPassedValues()
+        {
+            var expectedStreets = new[]
+            {
+                "Fakestreet",
+                "Another Fakestreet",
+                "Downtown Fakestreet"
+            };
+
+            Assert.DoesNotThrow(
+                () =>
+                {
+                    ConstructorTestBuilderFactory.Constructing<Address>()
+                        .UsingDefaultConstructor()
+                        .WithArgumentValues(expectedStreets)
+                        .Maps()
+                        .ToProperty(f => f.Streets).WithValues(expectedStreets)
+                        .BuildMaps()
+                        .Assert();
+                });
+        }
+
+        [Test]
+        public void ConstructingWithParams_PassingNoValue_MapsToCollectionWithoutValues()
+        {
+            Assert.DoesNotThrow(
+                () =>
+                {
+                    ConstructorTestBuilderFactory.Constructing<Address>()
+                        .UsingDefaultConstructor()
+                        .WithArgumentValues()
+                        .Maps()
+                        .ToProperty(f => f.Streets).WithValues(Array.Empty<string>())
+                        .BuildMaps()
+                        .Assert();
+                });
+        }
+
+        [Test]
+        public void ConstructingWithParams_PassingOneValue_MapsToCollectionWithPassedValue()
+        {
+            var expectedStreets = new[]
+            {
+                "Fakestreet"
+            };
+
+            Assert.DoesNotThrow(
+                () =>
+                {
+                    ConstructorTestBuilderFactory.Constructing<Address>()
+                        .UsingDefaultConstructor()
+                        .WithArgumentValues(expectedStreets.Single())
+                        .Maps()
+                        .ToProperty(f => f.Streets).WithValues(expectedStreets)
                         .BuildMaps()
                         .Assert();
                 });

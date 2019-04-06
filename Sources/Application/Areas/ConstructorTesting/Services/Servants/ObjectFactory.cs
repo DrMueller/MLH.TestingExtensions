@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Servants
@@ -9,16 +11,52 @@ namespace Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Servants
         {
             try
             {
-                // If the argumentValues are actually null, they are not recognized
-                // So, we create a new array with one entry being null
-                var args = argumentValues ?? new object[] { null };
-                createdObject = (T)constructorInfo.Invoke(args);
+                var args = argumentValues?.ToList() ?? new List<object> { null };
+                SpreadParamsParameter(constructorInfo, args);
+                createdObject = (T)constructorInfo.Invoke(args.ToArray());
                 return true;
             }
             catch (Exception)
             {
                 createdObject = default(T);
                 return false;
+            }
+        }
+
+        private static void SpreadParamsParameter(MethodBase constructorInfo, IList<object> args)
+        {
+            // This block is needed to spread the params argument
+            var ctorParams = constructorInfo.GetParameters();
+            var paramsCnt = ctorParams.Length;
+            var lastParam = ctorParams.Last();
+            var paramArrayAttr = lastParam.GetCustomAttribute<ParamArrayAttribute>();
+
+            if (paramArrayAttr != null)
+            {
+                var argsAtAndAfterParamPosition = args.Where(f => args.IndexOf(f) + 1 >= paramsCnt).ToList();
+                Array paramsArray;
+                var arrayType = lastParam.ParameterType.GetElementType();
+                if (!argsAtAndAfterParamPosition.Any())
+                {
+                    // This means, there was no args passed to the params
+                    // Therefore we pass an empty array
+                    // As the params has to be array, we need to take the element type
+                    paramsArray = Array.CreateInstance(arrayType, 0);
+                }
+                else
+                {
+                    // This means exactly one arg was passed to the params
+                    // Therefore, we create an array and pass the value as entry
+                    // As we need the correct type, we recreate it
+                    paramsArray = Array.CreateInstance(arrayType, argsAtAndAfterParamPosition.Count);
+                    for (var i = 0; i < argsAtAndAfterParamPosition.Count; i++)
+                    {
+                        paramsArray.SetValue(argsAtAndAfterParamPosition[i], i);
+                    }
+                }
+
+                argsAtAndAfterParamPosition.ForEach(arg => args.Remove(arg));
+                args.Add(paramsArray);
             }
         }
     }
