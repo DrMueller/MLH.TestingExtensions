@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using Mmu.Mlh.TestingExtensions.Areas.Common.Assertions.Models;
+using Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Models;
 using Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Servants;
 
 namespace Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Implementation

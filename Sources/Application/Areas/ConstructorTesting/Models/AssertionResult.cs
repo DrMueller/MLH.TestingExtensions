@@ -1,4 +1,4 @@
-﻿namespace Mmu.Mlh.TestingExtensions.Areas.Common.Assertions.Models
+﻿namespace Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Models
 {
     public class AssertionResult
     {

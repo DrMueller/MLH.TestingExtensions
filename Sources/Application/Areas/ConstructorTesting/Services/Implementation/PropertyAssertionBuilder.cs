@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
-using Mmu.Mlh.TestingExtensions.Areas.Common.Assertions.Models;
+using Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Models;
 using Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Implementation.PropertyAsserters;
 using Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Implementation.PropertyAsserters.Implementation;
 

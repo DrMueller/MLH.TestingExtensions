@@ -18,7 +18,7 @@ namespace Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Servants
             }
             catch (Exception)
             {
-                createdObject = default(T);
+                createdObject = default;
                 return false;
             }
         }
@@ -36,6 +36,12 @@ namespace Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Servants
                 var argsAtAndAfterParamPosition = args.Where(f => args.IndexOf(f) + 1 >= paramsCnt).ToList();
                 Array paramsArray;
                 var arrayType = lastParam.ParameterType.GetElementType();
+
+                if (arrayType == null)
+                {
+                    throw new Exception("Something went horribly wrong.");
+                }
+
                 if (!argsAtAndAfterParamPosition.Any())
                 {
                     // This means, there was no args passed to the params

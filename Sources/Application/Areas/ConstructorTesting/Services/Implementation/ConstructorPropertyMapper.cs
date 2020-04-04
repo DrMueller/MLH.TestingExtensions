@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using Mmu.Mlh.LanguageExtensions.Areas.Collections;
 using Mmu.Mlh.LanguageExtensions.Areas.StringBuilders;
-using Mmu.Mlh.TestingExtensions.Areas.Common.Assertions.Models;
+using Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Models;
 using Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Servants;
 
 namespace Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Implementation

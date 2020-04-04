@@ -1,9 +1,9 @@
-﻿using Mmu.Mlh.TestingExtensions.Areas.Common.BasesClasses;
+﻿using Mmu.Mlh.TestingExtensions.Areas.IntegrationTesting.BaseClasses;
 using Mmu.Mlh.TestingExtensions.FakeApp.Areas.Services;
 using Moq;
 using NUnit.Framework;
 
-namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.TestingServiceProvisioning
+namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.IntegrationTesting.BaseClasses
 {
     [TestFixture]
     public class TestingBaseWithContainerTests : TestingBaseWithContainer

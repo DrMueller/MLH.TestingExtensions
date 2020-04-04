@@ -4,7 +4,7 @@ using Mmu.Mlh.ServiceProvisioning.Areas.Provisioning.Services;
 using NUnit.Framework;
 using StructureMap;
 
-namespace Mmu.Mlh.TestingExtensions.Areas.Common.BasesClasses
+namespace Mmu.Mlh.TestingExtensions.Areas.IntegrationTesting.BaseClasses
 {
     [TestFixture]
     public abstract class TestingBaseWithContainer

@@ -1,4 +1,4 @@
-﻿namespace Mmu.Mlh.TestingExtensions.Areas.Common.BasesClasses
+﻿namespace Mmu.Mlh.TestingExtensions.Areas.IntegrationTesting.BaseClasses
 {
     public class TestingContainerConfiguration
     {

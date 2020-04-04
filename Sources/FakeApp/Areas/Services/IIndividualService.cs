@@ -1,8 +1,9 @@
-﻿using Mmu.Mlh.TestingExtensions.FakeApp.Areas.Models;
+﻿using System;
+using Mmu.Mlh.TestingExtensions.FakeApp.Areas.Models;
 
 namespace Mmu.Mlh.TestingExtensions.FakeApp.Areas.Services
 {
-    public interface IIndividualService
+    public interface IIndividualService : IDisposable
     {
         Individual LoadIndividual();
     }

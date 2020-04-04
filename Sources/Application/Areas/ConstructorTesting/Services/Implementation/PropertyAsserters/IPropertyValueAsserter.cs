@@ -1,4 +1,4 @@
-﻿using Mmu.Mlh.TestingExtensions.Areas.Common.Assertions.Models;
+﻿using Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Models;
 
 namespace Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Implementation.PropertyAsserters
 {

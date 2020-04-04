@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Mmu.Mlh.LanguageExtensions.Areas.Collections;
-using Mmu.Mlh.TestingExtensions.Areas.Common.Assertions.Models;
+using Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Models;
 using Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Implementation.PropertyAsserters.Servants;
 using Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Servants;
 

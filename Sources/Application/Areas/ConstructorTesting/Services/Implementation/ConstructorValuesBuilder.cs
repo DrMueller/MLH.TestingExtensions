@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using ApprovalUtilities.Utilities;
 using Mmu.Mlh.LanguageExtensions.Areas.StringBuilders;
-using Mmu.Mlh.TestingExtensions.Areas.Common.Assertions.Models;
+using Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Models;
 using Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Servants;
 using n = NUnit.Framework;
 
