@@ -1,0 +1,27 @@
+https://entityframeworkcore.com/knowledge-base/48617880/ef-core-migrations-in-docker-container
+
+https://hub.docker.com/_/microsoft-mssql-server?tab=description
+
+
+Download or use cached Docker Image with SQL
+Check used ports and add one more
+Start SQL Docker Image
+Apply migrations
+Apply seed data
+Run tests
+Kill docker image
+
+
+https://github.xmedia.ch/Immoscout24/BE-2-ImmoHub/blob/master/Jenkins/includes/_testStages.groovy
+
+
+
+docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=yourStrong(!)Password" -e "MSSQL_PID=Express" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2017-latest
+
+
+
+
+@"Server=127.0.0.1,1433;Database=Master;User Id=SA;Password=SA_PASSWORD=yourStrong(!)Password"
+
+
+https://stackoverflow.com/questions/45712122/connection-string-for-sqlserver-in-docker-container

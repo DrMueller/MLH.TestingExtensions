@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Mmu.Mlh.ServiceProvisioning.Areas.Provisioning.Services;
 using Mmu.Mlh.TestingExtensions.FakeApp.Areas.DataAccess.DataModels;
-using Mmu.Mlh.TestingExtensions.FakeApp.Areas.Services;
 
-namespace Mmu.Mlh.TestingExtensions.FakeApp.Areas.DataAccess
+namespace Mmu.Mlh.TestingExtensions.FakeApp.Areas.DataAccess.DbContexts
 {
     public class AppDbContext : DbContext
     {
@@ -14,6 +12,10 @@ namespace Mmu.Mlh.TestingExtensions.FakeApp.Areas.DataAccess
         {
         }
 
+        public AppDbContext()
+        {
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (optionsBuilder.IsConfigured)
@@ -21,11 +23,16 @@ namespace Mmu.Mlh.TestingExtensions.FakeApp.Areas.DataAccess
                 return;
             }
 
-            var connectionStringProvider = ServiceLocatorSingleton.Instance.GetService<IConnectionStringProvider>();
-            var connectionString = connectionStringProvider.ProvideConnectionString();
-            optionsBuilder.UseSqlServer(connectionString);
+            optionsBuilder.UseSqlServer(@"Integrated Security=SSPI;Initial Catalog=TestForDocker;Data Source=LT-R90S3YAQ\SQLEXPRESS");
             optionsBuilder.ConfigureWarnings(warnings => warnings.Throw());
             base.OnConfiguring(optionsBuilder);
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<IndividualDataModel>().HasKey(f => f.Id);
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
