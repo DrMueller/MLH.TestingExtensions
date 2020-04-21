@@ -1,32 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Mmu.Mlh.TestingExtensions.Infrastructure.Docker.Services;
+﻿////using System;
+////using System.Collections.Generic;
+////using System.Text;
+////using System.Threading.Tasks;
+////using Microsoft.EntityFrameworkCore;
+////using Mmu.Mlh.TestingExtensions.Infrastructure.Docker.Services;
 
-namespace Mmu.Mlh.TestingExtensions.Areas.EntityFrameworkTesting.Factories.Implementation
-{
-    internal class DbContextFactory : IDbContextFactory
-    {
-        private readonly IDockerContainerStarter _dockerContainerStarter;
+////namespace Mmu.Mlh.TestingExtensions.Areas.EntityFrameworkTesting.Factories.Implementation
+////{
+////    internal class DbContextFactory : IDbContextFactory
+////    {
+////        private readonly IDockerContainerStarter _dockerContainerStarter;
 
-        public DbContextFactory(IDockerContainerStarter dockerContainerStarter)
-        {
-            _dockerContainerStarter = dockerContainerStarter;
-        }
+////        public DbContextFactory(IDockerContainerStarter dockerContainerStarter)
+////        {
+////            _dockerContainerStarter = dockerContainerStarter;
+////        }
 
-        public async Task<TDbContext> CreateAsync<TDbContext>(Func<DbContextOptions<TDbContext>, TDbContext> builder)
-            where TDbContext : DbContext
-        {
-            var dockerContainerResult = await _dockerContainerStarter.StartMsSqlContainerAsync();
+////        public async Task<TDbContext> CreateAsync<TDbContext>(Func<DbContextOptions<TDbContext>, TDbContext> builder)
+////            where TDbContext : DbContext
+////        {
+////            var dockerContainerResult = await _dockerContainerStarter.StartMsSqlContainerAsync();
 
-            var options = new DbContextOptionsBuilder<TDbContext>()
-                .UseSqlServer(dockerContainerResult.ConnectionString)
-                .Options;
+////            var options = new DbContextOptionsBuilder<TDbContext>()
+////                .UseSqlServer(dockerContainerResult.ConnectionString)
+////                .Options;
 
-            var result = builder(options);
-            return result;
-        }
-    }
-}
+////            var result = builder(options);
+////            return result;
+////        }
+////    }
+////}

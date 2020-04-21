@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Mmu.Mlh.TestingExtensions.FakeApp.Areas.DataAccess;
 using Mmu.Mlh.TestingExtensions.FakeApp.Areas.DataAccess.DataModels;
 using Mmu.Mlh.TestingExtensions.FakeApp.Areas.DataAccess.DbContexts;
 using NUnit.Framework;
@@ -26,7 +25,7 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.EntityFrameworkTest
             // Act
             await appDbContext.Individuals.AddAsync(ind);
             await appDbContext.SaveChangesAsync();
-            
+
             var individuals = await appDbContext.Individuals.ToListAsync();
 
             // Assert

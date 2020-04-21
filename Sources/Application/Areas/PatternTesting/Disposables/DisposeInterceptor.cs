@@ -13,7 +13,6 @@ namespace Mmu.Mlh.TestingExtensions.Areas.PatternTesting.Disposables
             {
                 DisposeWasCalled = true;
             }
-
             else if (DisposeWasCalled)
             {
                 MemberWasInvokedAfterDisposal = true;

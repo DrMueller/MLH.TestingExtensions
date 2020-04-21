@@ -1,5 +1,4 @@
-﻿using Mmu.Mlh.TestingExtensions.Infrastructure.Docker.Services;
-using Mmu.Mlh.TestingExtensions.Infrastructure.Docker.Services.Implementation;
+﻿using Mmu.Mlh.TestingExtensions.Areas.IntegrationTesting.Contexts.Factories;
 using StructureMap;
 
 namespace Mmu.Mlh.TestingExtensions.Infrastructure.DependencyInjection
@@ -14,8 +13,6 @@ namespace Mmu.Mlh.TestingExtensions.Infrastructure.DependencyInjection
                     scanner.AssemblyContainingType<TestingExtensionsRegistry>();
                     scanner.WithDefaultConventions();
                 });
-
-            For<IDockerContainerStarter>().Use<DockerContainerStarter>().Singleton();
         }
     }
 }

@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services;
 using Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Implementation.PropertyAsserters.Servants;
-using Mmu.Mlh.TestingExtensions.Areas.IntegrationTesting.BaseClasses;
 using Mmu.Mlh.TestingExtensions.FakeApp.Areas.Models;
 using NUnit.Framework;
 
 namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
 {
-    public class ConstructorTests : TestingBaseWithContainer
+    public class ConstructorTests
     {
         [Test]
         public void ComparingConstructorNotNull_ToNullValue_DoesThrow()
@@ -171,6 +170,7 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting
                 {
                     ConstructorTestBuilderFactory.Constructing<Address>()
                         .UsingDefaultConstructor()
+
                         // ReSharper disable once CoVariantArrayConversion
                         .WithArgumentValues(expectedStreets)
                         .Maps()

@@ -1,4 +1,4 @@
-﻿using Mmu.Mlh.TestingExtensions.Areas.IntegrationTesting.BaseClasses;
+﻿using Mmu.Mlh.TestingExtensions.Areas.IntegrationTesting.Contexts.Factories;
 using Mmu.Mlh.TestingExtensions.FakeApp.Areas.Services;
 using Moq;
 using NUnit.Framework;
@@ -6,29 +6,30 @@ using NUnit.Framework;
 namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.IntegrationTesting.BaseClasses
 {
     [TestFixture]
-    public class TestingBaseWithContainerTests : TestingBaseWithContainer
+    public class IntegrationTestContextTests
     {
         [Test]
         public void FetchingService_WithoutFake_FetchesActualService()
         {
-            IIndividualService actualIndividualService = null;
+            var context = IntegrationTestContextFactory.Create();
 
             Assert.DoesNotThrow(
                 () =>
                 {
-                    actualIndividualService = ServiceLocator.GetService<IIndividualService>();
+                    var actualIndividualService = context.ServiceLocator.GetService<IIndividualService>();
+                    Assert.IsNotNull(actualIndividualService);
                 });
-
-            Assert.IsNotNull(actualIndividualService);
         }
 
         [Test]
         public void RegisteringFake_RegistersFake()
         {
-            var individualServiceMock = new Mock<IIndividualService>();
-            RegisterInstance(individualServiceMock.Object);
+            var context = IntegrationTestContextFactory.Create();
 
-            var actualIndividualService = ServiceLocator.GetService<IIndividualService>();
+            var individualServiceMock = new Mock<IIndividualService>();
+            context.RegisterInstance(individualServiceMock.Object);
+
+            var actualIndividualService = context.ServiceLocator.GetService<IIndividualService>();
 
             Assert.AreEqual(individualServiceMock.Object, actualIndividualService);
         }
