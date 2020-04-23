@@ -1,5 +1,4 @@
-﻿using Mmu.Mlh.TestingExtensions.Areas.IntegrationTesting.Contexts.Factories;
-using StructureMap;
+﻿using StructureMap;
 
 namespace Mmu.Mlh.TestingExtensions.Infrastructure.DependencyInjection
 {
