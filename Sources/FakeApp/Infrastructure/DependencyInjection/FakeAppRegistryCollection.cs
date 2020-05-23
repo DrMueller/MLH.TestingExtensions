@@ -1,15 +1,15 @@
-﻿using StructureMap;
+﻿using Lamar;
 
 namespace Mmu.Mlh.TestingExtensions.FakeApp.Infrastructure.DependencyInjection
 {
-    public class FakeAppRegistry : Registry
+    public class FakeAppRegistryCollection : ServiceRegistry
     {
-        public FakeAppRegistry()
+        public FakeAppRegistryCollection()
         {
             Scan(
                 scanner =>
                 {
-                    scanner.AssemblyContainingType<FakeAppRegistry>();
+                    scanner.AssemblyContainingType<FakeAppRegistryCollection>();
                     scanner.WithDefaultConventions();
                 });
         }

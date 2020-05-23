@@ -1,8 +1,8 @@
-﻿using StructureMap;
+﻿using Lamar;
 
 namespace Mmu.Mlh.TestingExtensions.Infrastructure.DependencyInjection
 {
-    public class TestingExtensionsRegistry : Registry
+    public class TestingExtensionsRegistry : ServiceRegistry
     {
         public TestingExtensionsRegistry()
         {
