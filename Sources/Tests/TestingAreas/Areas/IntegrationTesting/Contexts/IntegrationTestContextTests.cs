@@ -3,7 +3,7 @@ using Mmu.Mlh.TestingExtensions.FakeApp.Areas.Services;
 using Moq;
 using NUnit.Framework;
 
-namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.IntegrationTesting.BaseClasses
+namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.IntegrationTesting.Contexts
 {
     [TestFixture]
     public class IntegrationTestContextTests
