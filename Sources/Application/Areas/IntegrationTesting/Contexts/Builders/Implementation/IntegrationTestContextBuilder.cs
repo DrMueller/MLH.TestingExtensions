@@ -12,7 +12,7 @@ namespace Mmu.Mlh.TestingExtensions.Areas.IntegrationTesting.Contexts.Builders.I
     public class IntegrationTestContextBuilder : IIntegrationTestContextBuilder
     {
         private readonly ContainerConfiguration _containerConfig;
-        private List<ServiceDescriptor> _serviceDescriptors;
+        private readonly List<ServiceDescriptor> _serviceDescriptors;
 
         internal IntegrationTestContextBuilder(ContainerConfiguration containerConfig)
         {

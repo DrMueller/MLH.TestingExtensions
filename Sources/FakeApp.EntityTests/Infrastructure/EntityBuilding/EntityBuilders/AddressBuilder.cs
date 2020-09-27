@@ -13,7 +13,7 @@ namespace Mmu.Mlh.TestingExtensions.FakeApp.EntityTests.Infrastructure.EntityBui
     {
         public const string DefaultCity = "Tra";
         public const int DefaultZip = 1234;
-        private IList<StreetBuilder> _streetBuilders = new List<StreetBuilder>();
+        private readonly IList<StreetBuilder> _streetBuilders = new List<StreetBuilder>();
 
         public AddressBuilder(IEntityBuilderFactory entityBuilderFactory, ITestAppDbContextFactory appContextFactory) : base(entityBuilderFactory, appContextFactory)
         {
