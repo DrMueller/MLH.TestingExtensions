@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using ApprovalTests;
 using ApprovalTests.Reporters;
 using Mmu.Mlh.TestingExtensions.Areas.ApprovalTesting;
-using Mmu.Mlh.TestingExtensions.FakeApp.Areas.Models;
+using Mmu.Mlh.TestingExtensions.FakeApp.Areas.Domain.Models;
 using Newtonsoft.Json;
 using NUnit.Framework;
 

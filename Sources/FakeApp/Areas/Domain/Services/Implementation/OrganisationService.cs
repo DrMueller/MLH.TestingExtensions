@@ -1,4 +1,4 @@
-﻿namespace Mmu.Mlh.TestingExtensions.FakeApp.Areas.Services.Implementation
+﻿namespace Mmu.Mlh.TestingExtensions.FakeApp.Areas.Domain.Services.Implementation
 {
     public class OrganisationService
     {

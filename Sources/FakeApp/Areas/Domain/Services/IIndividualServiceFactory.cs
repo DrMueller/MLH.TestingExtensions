@@ -1,4 +1,4 @@
-﻿namespace Mmu.Mlh.TestingExtensions.FakeApp.Areas.Services
+﻿namespace Mmu.Mlh.TestingExtensions.FakeApp.Areas.Domain.Services
 {
     public interface IIndividualServiceFactory
     {

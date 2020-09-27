@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services;
 using Mmu.Mlh.TestingExtensions.Areas.ConstructorTesting.Services.Implementation.PropertyAsserters.Servants;
-using Mmu.Mlh.TestingExtensions.FakeApp.Areas.Models;
+using Mmu.Mlh.TestingExtensions.FakeApp.Areas.Domain.Models;
 using NUnit.Framework;
 
 namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.ConstructorTesting

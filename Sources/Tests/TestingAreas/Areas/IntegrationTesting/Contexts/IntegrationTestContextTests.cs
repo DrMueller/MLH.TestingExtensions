@@ -1,6 +1,6 @@
 ﻿using Mmu.Mlh.ServiceProvisioning.Areas.Initialization.Models;
 using Mmu.Mlh.TestingExtensions.Areas.IntegrationTesting.Contexts.Builders;
-using Mmu.Mlh.TestingExtensions.FakeApp.Areas.Services;
+using Mmu.Mlh.TestingExtensions.FakeApp.Areas.Domain.Services;
 using Moq;
 using NUnit.Framework;
 

@@ -1,4 +1,4 @@
-﻿namespace Mmu.Mlh.TestingExtensions.FakeApp.Areas.Models
+﻿namespace Mmu.Mlh.TestingExtensions.FakeApp.Areas.Domain.Models
 {
     public class Address
     {

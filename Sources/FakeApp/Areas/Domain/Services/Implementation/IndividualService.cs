@@ -1,7 +1,7 @@
-﻿using System;
-using Mmu.Mlh.TestingExtensions.FakeApp.Areas.Models;
+using System;
+using Mmu.Mlh.TestingExtensions.FakeApp.Areas.Domain.Models;
 
-namespace Mmu.Mlh.TestingExtensions.FakeApp.Areas.Services.Implementation
+namespace Mmu.Mlh.TestingExtensions.FakeApp.Areas.Domain.Services.Implementation
 {
     public class IndividualService : IIndividualService
     {

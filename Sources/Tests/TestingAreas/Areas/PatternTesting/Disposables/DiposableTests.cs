@@ -1,6 +1,6 @@
 ﻿using Mmu.Mlh.TestingExtensions.Areas.PatternTesting.Disposables;
-using Mmu.Mlh.TestingExtensions.FakeApp.Areas.Services;
-using Mmu.Mlh.TestingExtensions.FakeApp.Areas.Services.Implementation;
+using Mmu.Mlh.TestingExtensions.FakeApp.Areas.Domain.Services;
+using Mmu.Mlh.TestingExtensions.FakeApp.Areas.Domain.Services.Implementation;
 using Moq;
 using NUnit.Framework;
 
