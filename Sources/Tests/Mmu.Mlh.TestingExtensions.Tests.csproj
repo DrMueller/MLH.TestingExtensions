@@ -1,21 +1,21 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <Features>IOperation</Features>
     <CodeAnalysisRuleSet>..\..\CA_TestCode.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
-    <PackageReference Include="Moq" Version="4.10.0" />
-    <PackageReference Include="NUnit" Version="3.12.0" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
-  </ItemGroup>
+ <ItemGroup>
+  <PackageReference Include="ApprovalTests" Version="5.4.2" />
+  <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
+  <PackageReference Include="NUnit" Version="3.12.0" />
+  <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
+ </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Application\Mmu.Mlh.TestingExtensions.csproj" />
-    <ProjectReference Include="..\FakeApp\Mmu.Mlh.TestingExtensions.FakeApp.csproj" />
-  </ItemGroup>
+ <ItemGroup>
+   <ProjectReference Include="..\Application\Mmu.Mlh.TestingExtensions.csproj" />
+   <ProjectReference Include="..\FakeApp\Mmu.Mlh.TestingExtensions.FakeApp.csproj" />
+ </ItemGroup>
 
 </Project>
