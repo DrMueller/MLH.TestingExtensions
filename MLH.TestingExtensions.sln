@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29911.84
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mmu.Mlh.TestingExtensions", "Sources\Application\Mmu.Mlh.TestingExtensions.csproj", "{9B325EA7-6379-4104-A321-CF547CFCF882}"
 EndProject
@@ -10,6 +10,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mmu.Mlh.TestingExtensions.FakeApp.EntityTests", "Sources\FakeApp.EntityTests\Mmu.Mlh.TestingExtensions.FakeApp.EntityTests.csproj", "{6C08C1CF-92E0-45BC-986A-D3637ABC5B86}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mmu.Mlh.TestingExtensions.Tests", "Sources\Tests\Mmu.Mlh.TestingExtensions.Tests.csproj", "{E86EFB9D-636A-4803-8246-5E1D1C9C18D1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3775DB73-BF14-4A39-B9E9-D2BBDBC8B02C}"
+	ProjectSection(SolutionItems) = preProject
+		README.MD = README.MD
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
