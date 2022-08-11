@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Mmu.Mlh.TestingExtensions.FakeApp.Areas.Domain.Models;
 
 namespace Mmu.Mlh.TestingExtensions.FakeApp.Areas.Domain.Services.Implementation
@@ -18,8 +19,10 @@ namespace Mmu.Mlh.TestingExtensions.FakeApp.Areas.Domain.Services.Implementation
             return new Individual("Test1234");
         }
 
-        protected virtual void Dispose(bool _)
+        protected virtual void Dispose(bool disposedByCode)
         {
+            Debug.WriteLine(disposedByCode);
+
             if (!_disposed)
             {
                 _disposed = true;
