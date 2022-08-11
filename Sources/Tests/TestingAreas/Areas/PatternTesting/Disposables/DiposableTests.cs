@@ -41,7 +41,7 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.PatternTesting.Disp
 
             // Assert
             var actualException = Assert.Throws<AssertionException>(() => indServiceDisposable.AssertDisposed());
-            Assert.AreEqual(AssertionErrorMessages.ObjectNotDisposedErrorMessage, actualException.Message);
+            Assert.AreEqual(AssertionErrorMessages.ObjectNotDisposedErrorMessage, actualException!.Message);
         }
 
         [Test]
@@ -59,7 +59,7 @@ namespace Mmu.Mlh.TestingExtensions.Tests.TestingAreas.Areas.PatternTesting.Disp
 
             // Assert
             var actualException = Assert.Throws<AssertionException>(() => indServiceDisposable.AssertDisposed());
-            Assert.AreEqual(AssertionErrorMessages.MemberCalledAfterDisposedErrorMessage, actualException.Message);
+            Assert.AreEqual(AssertionErrorMessages.MemberCalledAfterDisposedErrorMessage, actualException!.Message);
         }
     }
 }

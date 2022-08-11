@@ -18,7 +18,7 @@ namespace Mmu.Mlh.TestingExtensions.FakeApp.Areas.Domain.Services.Implementation
             return new Individual("Test1234");
         }
 
-        protected virtual void Dispose(bool disposedByCode)
+        protected virtual void Dispose(bool _)
         {
             if (!_disposed)
             {
