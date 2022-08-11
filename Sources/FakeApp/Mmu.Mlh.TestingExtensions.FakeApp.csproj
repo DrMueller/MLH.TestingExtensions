@@ -20,6 +20,7 @@
     <PackageReference Include="Mmu.Mlh.DomainExtensions" Version="2.2.13" />
     <PackageReference Include="Mmu.Mlh.ServiceProvisioning" Version="3.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
   </ItemGroup>
 
 </Project>
