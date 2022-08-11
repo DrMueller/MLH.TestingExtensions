@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <Features>IOperation</Features>
     <CodeAnalysisRuleSet>..\..\CA_ProductionCode.ruleset</CodeAnalysisRuleSet>
     <Authors>DrMueller</Authors>
@@ -20,8 +20,7 @@
 
   <ItemGroup>
     <PackageReference Include="ApprovalTests" Version="3.0.18" />
-    <PackageReference Include="Mmu.Mlh.DomainExtensions" Version="2.1.6" />
-    <PackageReference Include="Mmu.Mlh.ServiceProvisioning" Version="2.1.5" />
+    <PackageReference Include="Mmu.Mlh.LanguageExtensions" Version="2.4.13" />
     <PackageReference Include="Moq" Version="4.10.0" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="NUnit" Version="3.12.0" />
